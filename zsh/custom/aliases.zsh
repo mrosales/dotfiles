@@ -1,22 +1,16 @@
-
-# rbenv
-if [ -f ~/.rbenv/shims ]; then
-    export PATH=~/.rbenv/shims:$PATH
-    eval "$(rbenv init -)"
-fi
-
-# Pebble SDK
-export PATH=/Users/mrosales/pebble-dev/PebbleSDK-current/bin:$PATH
-export PATH=/usr/local/bin:$PATH
-export PEBBLE_PHONE="10.0.127.164"
-export PATH=/Users/mrosales/arm-cs-tools/bin:$PATH
+# Example aliases
+alias zshconfig="vim ~/.zshrc"
+alias ohmyzsh="atom ~/.oh-my-zsh"
 
 #aliases
 alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
 alias ls='ls -lG'
 alias la='ls -laG'
 alias psx='ps aux'
 alias ipecho='curl echoip.com ; echo'
+alias todu='cd ~/dev/yc-hacks/todu-ios'
 
 #generates parent directories with mkdir
 alias mkdirp='mkdir -pv'
@@ -34,14 +28,12 @@ alias grepi='grep -i --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
-#git aliases
+# git aliases (not in git plugin)
+# see plugin wiki for all commands
+# https://github.com/robbyrussell/oh-my-zsh/wiki/Plugin:git
 alias gs='git status '
 alias ga='git add '
-alias gb='git branch '
-alias gc='git commit'
-alias gd='git diff'
 alias go='git checkout '
 
-#extra scripts
-
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+#pebble aliases
+alias pbil='pebble build && pebble install --logs'

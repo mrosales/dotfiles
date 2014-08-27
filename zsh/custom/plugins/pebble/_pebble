@@ -1,0 +1,96 @@
+#compdef pebble
+#autoload
+
+local -a _1st_arguments
+_1st_arguments=(
+  "new-project":"Create a new Pebble project"
+  "convert-project":"convert an existing Pebble project to the current SDK. Note: This will only convert the project, you'll still have to update your source to match the new APIs."
+  "build":"Build your Pebble project"
+  "clean":"Clean your Pebble project"
+  "analyze-size":"Analyze the size of your Pebble app"
+  "install":"Install your Pebble project to your watch"
+  "ping":"Ping your Pebble project to your watch"
+  "list":"List the apps installed on your watch"
+  "rm":"Remove an app from your watch"
+  "current":"Get the uuid and name of the current app"
+  "uuids":"List the uuids and names of installed apps"
+  "logs":"Continuously displays logs from the watch"
+  "repl":"Launch an interactive python shell with a `pebble` object to execute methods on."
+  "screenshot":"take a screenshot of the pebble"
+  "coredump":"get most recent core dump from the pebble"
+)
+
+_arguments '*:: :->command'
+if (( CURRENT == 1 )); then
+  _describe -t commands "pebble --help" _1st_arguments
+  return
+fi
+
+local -a _command_args
+case "$words[1]" in
+  new-project)
+    _command_args=(
+      '(-h --help)'{-h,--help}'[Show help]' \
+      '(--simple)--simple[Use a minimal c file]' \
+      '(--javascript)--javascript[Generate javascript related files]' \
+      )
+    ;;
+  convert-project)
+    _command_args=(
+      '(-h, --help)'{-h, --help}'[show this help message and exit]' \
+      '(--sdk SDK_PATH)--sdk[Path to Pebble SDK (ie: ~/pebble-dev/PebbleSDK-2.X/)]' \
+      '(--debug)--debug[Enable debugging output]' \
+      )
+    ;;
+  build)
+    _command_args=(
+      '(-h, --help)'{-h, --help}'[show this help message and exit]' \
+      '(--sdk SDK_PATH)--sdk[Path to Pebble SDK (ie: ~/pebble-dev/PebbleSDK-2.X/)]' \
+      '(--debug)--debug[Enable debugging output]' \
+      )
+    ;;
+  clean)
+    _command_args=(
+      '(-h, --help)'{-h, --help}'[show this help message and exit]' \
+      '(--sdk SDK_PATH)--sdk[Path to Pebble SDK (ie: ~/pebble-dev/PebbleSDK-2.X/)]' \
+      '(--debug)--debug[Enable debugging output]' \
+      )
+    ;;
+  analyze-size)
+    _command_args=(
+      '(-h, --help)'{-h, --help}'[show this help message and exit]' \
+      '(--sdk SDK_PATH)--sdk[Path to Pebble SDK (ie: ~/pebble-dev/PebbleSDK-2.X/)]' \
+      '(--debug)--debug[Enable debugging output]' \
+      '(--summary)--summary[Display a single line per section]' \
+      '(--verbose)--verbose[Display a per-symbol breakdown]' \
+      )
+    ;;
+  install)
+    _command_args=(
+      '(-h, --help)'{-h, --help}'[show this help message and exit]' \
+      '(--sdk SDK_PATH)--sdk[Path to Pebble SDK (ie: ~/pebble-dev/PebbleSDK-2.X/)]' \
+      '(--debug)--debug[Enable debugging output]' \
+      '(--phone PHONE)--phone[When using Developer Connection, the IP address or hostname of your phone. Can also be provided through PEBBLE_PHONE environment variable.]' \
+      '(--pebble_id PEBBLE_ID)--pebble_id'"[When using a direct BT connection, the watch's Bluetooth ID (e.g. DF38 or 01:23:45:67:DF:38). Can also be provided through PEBBLE_BTID environment variable.]" \
+      '(--pair)--pair[When using a direct BT connection, attempt to pair the watch automatically]' \   
+      '(--verbose)--verbose[Prints received system logs in addition to APP_LOG]' \
+      '(--logs)--logs[Display logs after installing the bundle]' \
+      )
+    ;;
+  ping|list|rm|current|uuids|logs|repl|screenshot|coredump)
+    _command_args=(
+      '(-h, --help)'{-h, --help}'[show this help message and exit]' \
+      '(--sdk SDK_PATH)--sdk[Path to Pebble SDK (ie: ~/pebble-dev/PebbleSDK-2.X/)]' \
+      '(--debug)--debug[Enable debugging output]' \
+      '(--phone PHONE)--phone[When using Developer Connection, the IP address or hostname of your phone. Can also be provided through PEBBLE_PHONE environment variable.]' \
+      '(--pebble_id PEBBLE_ID)--pebble_id'"[When using a direct BT connection, the watch's Bluetooth ID (e.g. DF38 or 01:23:45:67:DF:38). Can also be provided through PEBBLE_BTID environment variable.]" \
+      '(--pair)--pair[When using a direct BT connection, attempt to pair the watch automatically]' \   
+      '(--verbose)--verbose[Prints received system logs in addition to APP_LOG]' \
+      )
+    ;;
+  esac
+
+_arguments \
+  $_command_args \
+  '(--app)--app[the app name]' \
+  &&  return 0
