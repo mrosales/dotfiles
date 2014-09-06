@@ -30,7 +30,18 @@ set ttyfast 			"faster redraw
 set backspace=indent,eol,start
 set modelines=1
 " }}}
-" Spaces + Tabs {{{
+" Navigation {{{
+inoremap  <Up>     <NOP>
+inoremap  <Down>   <NOP>
+inoremap  <Left>   <NOP>
+inoremap  <Right>  <NOP>
+noremap   <Up>     <NOP>
+noremap   <Down>   <NOP>
+noremap   <Left>   <NOP>
+noremap   <Right>  <NOP>
+" }}}
+
+"  Spaces + Tabs {{{
 set tabstop=2			"2 space tabs
 set expandtab			" use tabs instead of spaces
 set softtabstop=2		" 2 space tabs
