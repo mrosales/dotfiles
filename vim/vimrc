@@ -6,7 +6,7 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#rc()
 
 " let Vundle manage Vundle  required! 
-Bundle 'gmarik/vundle'
+Bundle 'gmarik/Vundle.vim'
 
 " My Bundles here:
 "
@@ -40,7 +40,6 @@ noremap   <Down>   <NOP>
 noremap   <Left>   <NOP>
 noremap   <Right>  <NOP>
 " }}}
-
 "  Spaces + Tabs {{{
 set tabstop=2			"2 space tabs
 set expandtab			" use tabs instead of spaces
