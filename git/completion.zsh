@@ -1,12 +1,34 @@
 # Aliases
 alias g='git'
 compdef g=git
+
+alias ga='git add'
+compdef _git ga=git-add
+
+# This line is necessary to stop the
+# Autocomplete from spazzing
+alias __git-add_main=_git_add
+alias __git-checkout_main=_git_checkout
+alias __git-diff_main=_git_diff
+alias __git-commit_main=_git_commit
+alias __git-push_main=_git_push
+alias __git-branch_main=_git_branch
+alias __git-log_main=_git_log
+alias __git-reset_main=_git_reset
+alias __git-pull_main=_git_pull
+alias __git-fetch_main=_git_fetch
+alias __git-show_main=_git_show
+alias __git-cherry-pick_main=_git_cherry-pick
+alias __git-rebase_main=_git_rebase
+alias __git-merge_main=_git_merge
+alias __git-tag_main=_git_tag
+
 alias gs='git status '
-compdef _git gs=git-status
+alias gss='git status -s'
+alias gst='git status'
+
 alias go='git checkout '
 compdef _git go=git-checkout
-alias gst='git status'
-compdef _git gst=git-status
 alias gd='git diff'
 compdef _git gd=git-diff
 alias gdc='git diff --cached'
@@ -67,10 +89,6 @@ alias glo='git log --oneline --decorate --color'
 compdef _git glo=git-log
 alias glog='git log --oneline --decorate --color --graph'
 compdef _git glog=git-log
-alias gss='git status -s'
-compdef _git gss=git-status
-alias ga='git add'
-compdef _git ga=git-add
 alias gap='git add --patch'
 alias gm='git merge'
 compdef _git gm=git-merge
