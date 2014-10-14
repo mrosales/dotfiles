@@ -74,7 +74,7 @@ directory_name() {
 machine_prefix() {
   if ! [[ -z "$MACHINE_PREFIX" ]]
   then
-    echo "%{$fg_bold[purple]%}$MACHINE_PREFIX%{$reset_color%}hi"
+    echo "%{$fg_bold[magenta]%}$MACHINE_PREFIX%{$reset_color%} \u279c "
   else
     echo ""
   fi

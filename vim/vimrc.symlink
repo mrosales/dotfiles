@@ -17,6 +17,7 @@ Bundle 'sjl/gundo.vim'
 Bundle 'rking/ag.vim'
 Bundle 'kien/ctrlp.vim'
 Bundle 'vim-ruby/vim-ruby'
+Bundle 'tomasr/molokai'
 " Github repos of the user 'vim-scripts'
 " => can omit the username part
 Bundle 'L9'
