@@ -71,9 +71,18 @@ directory_name() {
   echo "%{$fg_bold[cyan]%}%~%{$reset_color%}"
 }
 
-export PROMPT=$'\n$(directory_name) $(git_dirty)$(need_push)\n› '
+machine_prefix() {
+  if ! [[ -z "$MACHINE_PREFIX" ]]
+  then
+    echo "%{$fg_bold[purple]%}$MACHINE_PREFIX%{$reset_color%}hi"
+  else
+    echo ""
+  fi
+}
+
 set_prompt () {
-  export RPROMPT="%{$fg_bold[cyan]%}%{$reset_color%}"
+  export PROMPT=$'\n$(machine_prefix)$(directory_name) $(git_dirty)$(need_push)\n› '
+  export RPROMPT='%{$fg_bold[cyan]%}%{$reset_color%}'
 }
 
 precmd() {
