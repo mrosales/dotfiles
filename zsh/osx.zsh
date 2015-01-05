@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Exit if not OSX
-if [ "${SYS_ARCH:-Linux}" != Darwin ] ; then exit 0 ; fi
+if [ "${SYS_ARCH:-Linux}" != Darwin ] ; then return ; fi
 
 #shows/hides hidden files in finder
 alias showf='defaults write com.apple.finder AppleShowAllFiles TRUE && killall Finder'
