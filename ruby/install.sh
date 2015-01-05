@@ -1,5 +1,7 @@
 #!/bin/sh
 
+if [ "${SYS_ARCH:-Linux}" != Darwin ] ; then return ; fi
+
 if test ! $(which rbenv)
 then
   echo "  Installing rbenv for you."

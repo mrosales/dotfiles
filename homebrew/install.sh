@@ -5,6 +5,8 @@
 # This installs some of the common dependencies needed (or at least desired)
 # using Homebrew.
 
+if [ "${SYS_ARCH:-Linux}" != Darwin ] ; then return ; fi
+
 # Check for Homebrew
 if test ! $(which brew)
 then
@@ -17,7 +19,7 @@ echo "Homebrew installer running."
 # Install homebrew packages
 brew install git mongodb python tmux vim wget
 
-# extras 
+# extras
 # brew install autojump heroku-toolbelt macvim r todo-txt
 
 exit 0
