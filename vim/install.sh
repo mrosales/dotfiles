@@ -1,8 +1,6 @@
-#!/bin/sh
-#
 # Vim
 #
-# This installs Vundle (if it is not already installed) and 
+# This installs Vundle (if it is not already installed) and
 # installs all of the vim plugins listed in your vimrc
 #
 # Note: .vim and .vimrc should already be symlinked

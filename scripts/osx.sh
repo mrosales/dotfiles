@@ -1,5 +1,3 @@
-#!/bin/bash
-
 ################################################################################
 # Useful commands taken from:
 # xhttp://azchipka.thechipkahouse.com/commands-make-yosemite-suck-less/10496/
