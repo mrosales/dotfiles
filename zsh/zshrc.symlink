@@ -5,7 +5,9 @@ export ZSH=$HOME/.dotfiles
 export PROJECTS=$HOME/dev
 
 export SYS_ARCH=$(uname -a | cut -d' ' -f1)
+if [ "$SYS_ARCH" = Darwin ] ; then
 export MAJOR_OSX_VERS=$(sw_vers -productVersion | awk -F "." '{print $1 "." $2}')
+fi
 
 # use .localrc for SUPER SECRET CRAP that you don't
 # want in your public, versioned repo.
