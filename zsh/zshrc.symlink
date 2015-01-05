@@ -2,7 +2,10 @@
 export ZSH=$HOME/.dotfiles
 
 # your project folder that we can `c [tab]` to
-export PROJECTS=~/dev
+export PROJECTS=$HOME/dev
+
+export SYS_ARCH=$(uname -a | cut -d' ' -f1)
+export MAJOR_OSX_VERS=$(sw_vers -productVersion | awk -F "." '{print $1 "." $2}')
 
 # use .localrc for SUPER SECRET CRAP that you don't
 # want in your public, versioned repo.

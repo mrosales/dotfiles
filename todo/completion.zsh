@@ -1,5 +1,8 @@
 #!/bin/zsh
 
+# Exit if not OSX
+if [ "${SYS_ARCH:-Linux}" != Darwin ] ; then exit 0 ; fi
+
 if (( $+commands[todo.sh] )) ; then
   autoload bashcompinit
   bashcompinit

@@ -29,18 +29,10 @@ alias psxg='ps aux | grepi'
 #generate sha1
 alias sha1='openssl sha1'
 
-#shows/hides hidden files in finder
-alias showf='defaults write com.apple.finder AppleShowAllFiles TRUE && killall Finder'
-alias hidef='defaults write com.apple.finder AppleShowAllFiles FALSE && killall Finder'
-
 ## Colorize the grep command output for ease of use (good for log files)##
 alias grep='grep --color=auto'
 alias grepi='grep -i --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
-#pebble aliases
-alias pbil='pebble build && pebble install --logs'
-
 alias reload!='. ~/.zshrc'
-
