@@ -14,10 +14,22 @@ fi
 
 echo "Homebrew installer running."
 
+function brew_install {
+  local name=`echo $1 | sed -e 's/Caskroom\/cask\///g'`
+  local v=$(brew ls --versions $name)
+  local c=$(brew cask list | grep "$name")
+  if [ -z "$v$c" ]; then
+    brew install $1 
+  else
+    echo "$1 is already installed"
+  fi
+}
+
+brew tap caskroom/versions
+brew tap homebrew/science
+brew tap homebrew/dupes
+
 # Install homebrew packages
-brew install git mongodb python tmux vim wget
-
-# extras
-# brew install autojump heroku-toolbelt macvim r todo-txt
-
+export lst=$(dirname $0)/packages
+for i in `cat $lst`; do brew_install "$i" ; done
 exit 0

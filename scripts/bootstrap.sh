@@ -1,7 +1,10 @@
+#!/usr/bin/env bash
+
 # bootstrap installs things.
 
 cd "$(dirname "$0")/.."
 DOTFILES_ROOT=$(pwd)
+DOTFILES_ROOT=`readlink $DOTFILES_ROOT`
 
 set -e
 
@@ -50,6 +53,8 @@ setup_gitconfig () {
 
 link_file () {
   local src=$1 dst=$2
+
+  echo "$src -> $dst"
 
   local overwrite= backup= skip=
   local action=
@@ -126,28 +131,16 @@ install_dotfiles () {
   info 'installing dotfiles'
 
   local overwrite_all=false backup_all=false skip_all=false
-
   for src in $(find "$DOTFILES_ROOT" -maxdepth 2 -name '*.symlink')
   do
     dst="$HOME/.$(basename "${src%.*}")"
     link_file "$src" "$dst"
   done
+  success "Dotfiles linked"
 }
 
-# setup_gitconfig
+setup_gitconfig
 install_dotfiles
-
-# If we're on a Mac, let's install and setup homebrew.
-if [ "$(uname -s)" == "Darwin" ]
-then
-  info "installing dependencies"
-  if source bin/dot > /tmp/dotfiles-dot 2>&1
-  then
-    success "dependencies installed"
-  else
-    fail "error installing dependencies"
-  fi
-fi
 
 echo ''
 echo '  All installed!'

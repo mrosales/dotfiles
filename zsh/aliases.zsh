@@ -27,7 +27,10 @@ alias yfamongo='mongod --dbpath ~/mongo/db &'
 alias psxg='ps aux | grepi'
 
 #generate sha1
-alias sha1='openssl sha1'
+alias sha1='shasum -a 1'
+alias sha256='shasum -a 256'
+
+alias firstword="cut -d' ' -f1"
 
 ## Colorize the grep command output for ease of use (good for log files)##
 alias grep='grep --color=auto'
