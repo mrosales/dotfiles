@@ -165,8 +165,9 @@ function work_in_progress() {
     echo "WIP!!"
   fi
 }
+
 # these alias commit and uncomit wip branches
-alias gwip='git add -A; git ls-files --deleted -z | xargs -r0 git rm; git commit -m "--wip--"'
+alias gwip='git add -A; git rm $(git ls-files --deleted); git commit -m "--wip--"'
 alias gunwip='git log -n 1 | grep -q -c "\-\-wip\-\-" && git reset HEAD~1'
 
 # these alias ignore changes to file
