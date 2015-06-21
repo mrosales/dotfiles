@@ -27,8 +27,8 @@ alias gs='git status '
 alias gss='git status -s'
 alias gst='git status'
 
-alias go='git checkout '
-compdef _git go=git-checkout
+# alias go='git checkout '
+# compdef _git go=git-checkout
 alias gd='git diff'
 compdef _git gd=git-diff
 alias gdc='git diff --cached'

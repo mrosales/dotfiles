@@ -9,16 +9,12 @@ if [ "$SYS_ARCH" = Darwin ] ; then
 export MAJOR_OSX_VERS=$(sw_vers -productVersion | awk -F "." '{print $1 "." $2}')
 fi
 
-# use .localrc for SUPER SECRET CRAP that you don't
-# want in your public, versioned repo.
-if [[ -a ~/.localrc ]]
-then
-  source ~/.localrc
-fi
-
 # all of our zsh files
 typeset -U config_files
 config_files=($ZSH/**/*.zsh)
+
+# reset PATH so reloading does not just append
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 
 # load the path files
 for file in ${(M)config_files:#*/path.zsh}
@@ -43,3 +39,10 @@ do
 done
 
 unset config_files
+
+# use .localrc for SUPER SECRET CRAP that you don't
+# want in your public, versioned repo.
+if [[ -a ~/.localrc ]]
+then
+  source ~/.localrc
+fi
