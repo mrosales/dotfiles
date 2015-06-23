@@ -24,6 +24,7 @@ alias zoo='ssh mhr35@node.zoo.cs.yale.edu'
 #generates parent directories with mkdir
 alias mkdirp='mkdir -pv'
 alias runmongo='mongod --config /usr/local/etc/mongod.conf &'
+alias runpostgres='postgres -D /usr/local/var/postgres &'
 alias psxg='ps aux | grepi'
 
 #generate sha1
