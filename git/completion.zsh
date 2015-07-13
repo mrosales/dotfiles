@@ -27,8 +27,6 @@ alias gs='git status '
 alias gss='git status -s'
 alias gst='git status'
 
-# alias go='git checkout '
-# compdef _git go=git-checkout
 alias gd='git diff'
 compdef _git gd=git-diff
 alias gdc='git diff --cached'
@@ -179,7 +177,7 @@ alias gignored='git ls-files -v | grep "^[[:lower:]]"'
 
 #compdef git-branch
 
-_git-branch () 
+_git-branch ()
 {
   declare l c m d
 
@@ -329,7 +327,7 @@ _git-remote () {
             ':branch name:__git_remotes' \
             ':url:_urls' && ret=0
           ;;
-          
+
       esac
       ;;
   esac
