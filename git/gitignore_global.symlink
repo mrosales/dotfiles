@@ -13,3 +13,8 @@
 
 # Bundler binstubs
 /bin/
+
+xcuserdata/
+
+*.sublime-project
+*.sublime-workspace
