@@ -22,6 +22,7 @@ alias __git-cherry-pick_main=_git_cherry-pick
 alias __git-rebase_main=_git_rebase
 alias __git-merge_main=_git_merge
 alias __git-tag_main=_git_tag
+alias __git-submodule_main=_git_submodule
 
 alias gs='git status '
 alias gss='git status -s'
@@ -31,6 +32,8 @@ alias gd='git diff'
 compdef _git gd=git-diff
 alias gdc='git diff --cached'
 compdef _git gdc=git-diff
+alias gdlc='git diff --cached HEAD^'
+compdef _git gdlc=git-diff
 alias gdt='git diff-tree --no-commit-id --name-only -r'
 compdef _git gdc=git diff-tree --no-commit-id --name-only -r
 alias gl='git pull'
@@ -65,6 +68,11 @@ compdef _git gb=git-branch
 alias gba='git branch -a'
 compdef _git gba=git-branch
 
+alias gsu='git submodule update'
+compdef _git gsu=git-submodule
+alias gsui='git submodule update --init'
+compdef _git gsui=git-submodule
+
 alias grbi='git rebase -i'
 compdef _git grbi=git-rebase
 alias grbc='git rebase --continue'
@@ -87,11 +95,19 @@ alias glo='git log --oneline --decorate --color'
 compdef _git glo=git-log
 alias glog='git log --oneline --decorate --color --graph'
 compdef _git glog=git-log
+
+alias glop='git log --pretty=format:"%C(yellow)%h%Cred%d %Creset%s%Cblue [%cn]" --decorate'
+compdef _git glop=git-log
+
 alias gap='git add --patch'
 alias gm='git merge'
 compdef _git gm=git-merge
+
 alias grh='git reset HEAD'
+compdef _git grh=git-reset
 alias grhh='git reset HEAD --hard'
+compdef _git grhh=git-reset
+
 alias gclean='git reset --hard && git clean -dfx'
 alias gwc='git whatchanged -p --abbrev-commit --pretty=medium'
 
@@ -108,7 +124,7 @@ alias gvt='git verify-tag'
 compdef _git gvt=git verify-tag
 
 alias gmt='git mergetool --no-prompt'
-compdef _git gm=git-mergetool
+compdef _git gmt=git-mergetool
 
 alias gg='git gui citool'
 alias gga='git gui citool --amend'
@@ -165,7 +181,7 @@ function work_in_progress() {
 }
 
 # these alias commit and uncomit wip branches
-alias gwip='git add -A; git rm $(git ls-files --deleted); git commit -m "--wip--"'
+alias gwip='git add -A; git rm $(git ls-files --deleted) 2> /dev/null; git commit -m "--wip--"'
 alias gunwip='git log -n 1 | grep -q -c "\-\-wip\-\-" && git reset HEAD~1'
 
 # these alias ignore changes to file
