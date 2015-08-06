@@ -63,8 +63,11 @@
   ls = ls-files
   find = "!git ls-files | grep -i"
   f = "!git ls-files | grep -i"
+  created = "!f() { git find $1 | xargs git log --reverse --date=short --format=%ad -- | head -n1 ; }; f"
   grep = "!f() { A=$(pwd) && TOPLEVEL=$(git rev-parse --show-toplevel) && cd $TOPLEVEL && git grep --full-name -In $1 | xargs -I{} echo $TOPLEVEL/{} && cd $A; }; f"
   stash-recover = "!git fsck --no-reflog 2>/dev/null | grep 'dangling commit' | cut -d ' ' -f 3 | xargs git log -1 --pretty=oneline"
+  created = "!f() { git find $1 | xargs git log --reverse --date=short --format=%ad -- | head -n1 ; }; f"
+  af = "!f() { git ls-files | grep -i $1 | xargs git add ; }; f"
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 
