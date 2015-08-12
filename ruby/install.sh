@@ -1,13 +1,25 @@
-if [ "${SYS_ARCH:-Linux}" != Darwin ] ; then return ; fi
+#!/bin/sh
+# Requires shell functions defined in
+# DOTFILE_ROOT/scripts/install-helpers.sh
 
-if test ! $(which rbenv)
-then
-  echo "  Installing rbenv for you."
-  brew install rbenv > /tmp/rbenv-install.log
-fi
+# can only perform setup if machine has homebrew installed
+if ! is_osx ; then exit 0 ; fi
 
-if test ! $(which ruby-build)
-then
-  echo "  Installing ruby-build for you."
-  brew install ruby-build > /tmp/ruby-build-install.log
-fi
+install_dep_if_needed rbenv
+install_dep_if_needed ruby-build
+
+latest_stable_ruby() {
+    version=$(rbenv install -l | awk -F '.' '
+               /^[[:space:]]*[0-9]+\.[0-9]+\.[0-9]+[[:space:]]*$/ {
+                  if ( ($1 * 100 + $2) * 100 + $3 > Max ) {
+                     Max = ($1 * 100 + $2) * 100 + $3
+                     Version=$0
+                     gsub(/ /, "", Version)
+                     }
+                  }
+               END { print Version }')
+    echo "$version"
+}
+
+RUBY_VERSION=$(latest_stable_ruby)
+gem install -v  "$RUBY_VERSION" > "/tmp/ruby-$RUBY_VERSION-install.log"
