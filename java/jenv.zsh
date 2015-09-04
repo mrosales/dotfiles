@@ -1,5 +1,5 @@
 # init according to man page
-if which jenv > /dev/null
+if (( $+commands[jenv] ))
 then
     eval "$(jenv init -)"
 fi

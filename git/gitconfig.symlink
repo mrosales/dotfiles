@@ -5,7 +5,7 @@
   protocol = ssh
 [user]
 	name = Micah Rosales
-	email = mrosales@taser.com
+	email = micah.rosales@gmail.com
 [credential]
   helper = osxkeychain
 [core]
