@@ -12,10 +12,10 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 
 # List direcory contents
-alias lsa='ls -lah'
-alias l='ls -lah'
-alias ll='ls -lh'
-alias la='ls -lAh'
+alias lsa='ls -lAGh'
+alias l='ls -lAGFh'
+alias ll='ls -lhG'
+alias la='ls -lAhG'
 # alias ls='ls -lG'
 
 alias psx='ps aux'
@@ -40,6 +40,7 @@ alias grep='grep --color=auto'
 alias grepi='grep -i --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
+alias R="/usr/local/bin/R --quiet"
 
 # xcode ios simulator
 alias simulator='open /Applications/Xcode.app/Contents/Developer/Applications/iOS\ Simulator.app'

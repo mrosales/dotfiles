@@ -12,6 +12,7 @@
   editor = subl -w
 	excludesfile = /Users/mrosales/.gitignore_global
   whitespace = fix, -indent-with-non-tab,trailing-space
+	autocrlf = input
 [color]
   ui = true
 [color "branch"]
@@ -72,7 +73,7 @@
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 
 [mergetool "sourcetree"]
-	cmd = /opt/homebrew-cask/Caskroom/sourcetree/2.0.5.2/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	cmd = /opt/homebrew-cask/Caskroom/sourcetree/2.1/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
 [filter "hawser"]
 	clean = git hawser clean %f
