@@ -2,7 +2,7 @@
 
 # bootstrap installs things.
 
-DOTFILES_ROOT=$HOME/dotfiles
+DOTFILES_ROOT=$HOME/.dotfiles
 cd $DOTFILES_ROOT
 
 set -e
@@ -138,7 +138,7 @@ install_dotfiles () {
   success "Dotfiles linked"
 }
 
-setup_gitconfig
+# setup_gitconfig
 install_dotfiles
 
 echo ''

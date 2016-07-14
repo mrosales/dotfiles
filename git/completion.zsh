@@ -1,8 +1,15 @@
 # Aliases
+alias git='noglob git'
+
+# Makes git auto completion faster favouring for local completions
+__git_files () {
+    _wanted files expl 'local files' _files
+}
+
 alias g='git'
 compdef g=git
 
-alias ga='git add'
+alias ga='noglob git add'
 compdef _git ga=git-add
 
 # This line is necessary to stop the
@@ -56,7 +63,7 @@ alias gca!='git commit -v -a --amend'
 compdef _git gca!=git-commit
 alias gcmsg='git commit -m'
 compdef _git gcmsg=git-commit
-alias gco='git checkout'
+alias gco='noglob git checkout'
 compdef _git gco=git-checkout
 alias gcm='git checkout master'
 alias gr='git remote'
@@ -103,9 +110,9 @@ alias gap='git add --patch'
 alias gm='git merge'
 compdef _git gm=git-merge
 
-alias grh='git reset HEAD'
+alias grh='noglob git reset HEAD'
 compdef _git grh=git-reset
-alias grhh='git reset HEAD --hard'
+alias grhh='noblob git reset HEAD --hard'
 compdef _git grhh=git-reset
 
 alias gclean='git reset --hard && git clean -dfx'
@@ -190,6 +197,7 @@ alias gunignore='git update-index --no-assume-unchanged'
 # list temporarily ignored files
 alias gignored='git ls-files -v | grep "^[[:lower:]]"'
 
+alias gi='vim .gitignore'
 
 #compdef git-branch
 

@@ -20,6 +20,7 @@ Bundle 'vim-ruby/vim-ruby'
 Bundle 'tomasr/molokai'
 Bundle 'chriskempson/base16-vim'
 Bundle 'tpope/vim-markdown'
+Bundle 'ajh17/Spacegray.vim'
 " Github repos of the user 'vim-scripts'
 " => can omit the username part
 Bundle 'L9'
