@@ -54,6 +54,9 @@ alias simulator='open /Applications/Xcode.app/Contents/Developer/Applications/iO
 
 alias reload!='. ~/.zshrc'
 
+alias randstr='python -c "import random; print '"'%016x'"' % random.randrange(16**16)"'
+
+alias randid='python -c "import sys; import random; sys.stdout.write('"'{:016X}.{:016X}'"'.format(random.randrange(16**16), random.randrange(16**16)))"'
 # Functions
 #
 # (f)ind by (n)ame
