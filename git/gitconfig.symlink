@@ -8,8 +8,6 @@
 	helper = osxkeychain
 
 [core]
-	# editor = subl -w
-	excludesfile = /Users/mrosales/.gitignore_global
 	whitespace = fix, -indent-with-non-tab,trailing-space
 	autocrlf = false
 	attributesfile = ~/.gitattributes
@@ -18,7 +16,7 @@
 	# [default] trailing-space: looks for spaces at the end of a line
 	# [default] space-before-tab: looks for spaces before tabs at the beginning of
 	# a line
-	whitespace = space-before-tab,indent-with-non-tab,trailing-space
+	whitespace = space-before-tab,trailing-space
 	# Make `git rebase` safer on OS X
 	# More info: <http://www.git-tower.com/blog/make-git-rebase-safe-on-osx/>
 	trustctime = false
@@ -51,41 +49,18 @@
 	hotfix = hotfix-
 	support = support-
 	versiontag = v
-[url "https://github.com/"]
-	insteadOf = gh:
-[url "https://gist.github.com/"]
-	insteadOf = gist:
-[url "https://bitbucket.org/"]
-	insteadOf = bb:
+
 [help]
 	autocorrect = 1
+
 [push]
 	default = simple
-
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-
-[mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
-
-[filter "hawser"]
-	clean = git hawser clean %f
-	smudge = git hawser smudge %f
-	required = true
 
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
-
-[url "ssh://git@github.com/"]
-	insteadOf = https://github.com/
-
-[url "ssh://git@bitbucket.org/"]
-	insteadOf = https://bitbucket.org/
 
 [alias]
 	st = status
@@ -97,16 +72,84 @@
 	lol = log --graph --decorate --pretty=oneline --abbrev-commit
 	lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
 	ls = ls-files
+
+	# searches for files that matche the pattern
 	find = "!git ls-files | grep -i"
-	f = "!git ls-files | grep -i"
-	created = "!f() { git find $1 | xargs git log --reverse --date=short --format=%ad -- | head -n1 ; }; f"
+
+	# Change to the top level of the repository and search the full path for the matching term.
+	# Then print out the full path of each one
 	grep = "!f() { A=$(pwd) && TOPLEVEL=$(git rev-parse --show-toplevel) && cd $TOPLEVEL && git grep --full-name -In $1 | xargs -I{} echo $TOPLEVEL/{} && cd $A; }; f"
+
 	stash-recover = "!git fsck --no-reflog 2>/dev/null | grep 'dangling commit' | cut -d ' ' -f 3 | xargs git log -1 --pretty=oneline"
+
+	# Prints the date that the matching file was created on
 	created = "!f() { git find $1 | xargs git log --reverse --date=short --format=%ad -- | head -n1 ; }; f"
+
+	# Add all files to the index that match the search query
 	af = "!f() { git ls-files | grep -i $1 | xargs git add ; }; f"
 
+	# Get the current branch name (not so useful in itself, but used in
+	# other aliases)
+	branch-name = "!git rev-parse --abbrev-ref HEAD"
+
+	# Push the current branch to the remote "origin", and set it to track
+	# the upstream branch
+	publish = "!git push -u origin $(git branch-name)"
+
+	# Delete the remote version of the current branch
+	unpublish = "!git push origin :$(git branch-name)"
+
+	# Delete a branch and recreate it from master — useful if you have, say,
+	# a development branch and a master branch and they could conceivably go
+	# out of sync
+	recreate = "!f() { [[ -n $@ ]] && git checkout \"$@\" && git unpublish && git checkout master && git branch -D \"$@\" && git checkout -b \"$@\" && git publish; }; f"
+
+	# Fire up your difftool (e.g. Kaleidescope) with all the changes that
+	# are on the current branch.
+	code-review = difftool origin/master...
+
+	# Given a merge commit, find the span of commits that exist(ed) on that
+	# branch. Again, not so useful in itself, but used by other aliases.
+	merge-span = "!f() { echo $(git log -1 $2 --merges --pretty=format:%P | cut -d' ' -f1)$1$(git log -1 $2 --merges --pretty=format:%P | cut -d' ' -f2); }; f"
+
+	# Find the commits that were introduced by a merge
+	merge-log = "!git log `git merge-span .. $1`"
+	# Show the changes that were introduced by a merge
+	merge-diff = "!git diff `git merge-span ... $1`"
+	# As above, but in your difftool
+	merge-difftool = "!git difftool `git merge-span ... $1`"
+
+	# Interactively rebase all the commits on the current branch
+	rebase-branch = "!git rebase -i `git merge-base master HEAD`"
+
+	#
+	# Working with files
+	#
+
+	# Unstage any files that have been added to the staging area
+	unstage = reset HEAD
+	# Show changes that have been staged
+	diffc = diff --cached
+
+	# Mark a file as "assume unchanged", which means that Git will treat it
+	# as though there are no changes to it even if there are. Useful for
+	# temporary changes to tracked files
+	assume = update-index --assume-unchanged
+	# Reverse the above
+	unassume = update-index --no-assume-unchanged
+	# Show the files that are currently assume-unchanged
+	assumed = "!git ls-files -v | grep ^h | cut -c 3-"
+
+	# Checkout our version of a file and add it
+	ours = "!f() { git checkout --ours $@ && git add $@; }; f"
+	# Checkout their version of a file and add it
+	theirs = "!f() { git checkout --theirs $@ && git add $@; }; f"
+
+	# Delete any branches that have been merged into master
+	# See also: https://gist.github.com/robmiller/5133264
+	delete-merged-branches = "!git checkout master && git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
+
 	#########################################################################
-	# The following are from the cloudfactory.files example
 
 	# add
 	a = add                           # add
@@ -119,18 +162,18 @@
 	#via http://stackoverflow.com/questions/5188320/how-can-i-get-a-list-of-git-branches-ordered-by-most-recent-commit
 	recent-branches = !git for-each-ref --count=5 --sort=-committerdate refs/heads/ --format='%(refname:short)'
 
-	# Remove branches that have already been merged with master
-	dm = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
-	# Credit an author on the latest commit
-	credit = "!f() { git commit --amend --author \"$1 <$2>\" -C HEAD; }; f"
 	# Interactive rebase with the given number of latest commits
 	reb = "!r() { git rebase -i HEAD~$1; }; r"
+
 	# Find branches containing commit
 	fb = "!f() { git branch -a --contains $1; }; f"
+
 	# Find tags containing commit
 	ft = "!f() { git describe --always --contains $1; }; f"
+
 	# Find commits by source code
 	fc = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short -S$1; }; f"
+
 	# Find commits by commit message
 	fm = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep=$1; }; f"
 
@@ -171,35 +214,15 @@
 	changelog = log --pretty=format:\" * %s\"
 	shortnocolor = log --pretty=format:\"%h %cr %cn %s\"
 
-	# pull
-	pl = pull                         # pull
-
-	# push
-	ps = push                         # push
-
 	# rebase
 	rc = rebase --continue            # continue rebase
 	rs = rebase --skip                # skip rebase
-
-	# remote
-	r = remote -v                     # show remotes (verbose)
 
 	# reset
 	unstage = reset HEAD              # remove files from index (tracking)
 	uncommit = reset --soft HEAD^     # go back before last commit, with files in uncommitted state
 	filelog = log -u                  # show changes to a file
 	mt = mergetool                    # fire up the merge tool
-
-	# stash
-	ss = stash                        # stash changes
-	sl = stash list                   # list stashes
-	sa = stash apply                  # apply stash (restore changes)
-	sd = stash drop                   # drop stashes (destory changes)
-
-	# status
-	s = status                        # status
-	st = status                       # status
-	stat = status                     # status
 
 	# tag
 	t = tag -n                        # show tags with <n> lines of each tag message
@@ -234,7 +257,6 @@
 	# instead of a/b/c/d as prefixes for patches
 	mnemonicprefix = true
 	algorithm = patience
-	tool = vimdiff
 
 [difftool]
 	prompt = false
@@ -243,37 +265,28 @@
 	# Remember my merges
 	# http://gitfu.wordpress.com/2008/04/20/git-rerere-rereremember-what-you-did-last-time/
 	enabled = true
-
-[include]
-	path = .gitconfig.user
+	autoupdate = true
 
 [branch]
 	# When creating a new branch off a remote branch, always set it up to
 	# track the remote branch so that we can pull from there.
-	autoseupmerge = always
 	autosetupmerge = true
-	# mergeoptions = --no-ff
 
 [branch "master"]
-	# This is the list of cmdline options that should be added to git-merge
-	# when I merge commits into the master branch.
-	#
-	# First off, the option --no-commit instructs git not to commit the merge
+	# The option --no-commit instructs git not to commit the merge
 	# by default. This allows me to do some final adjustment to the commit log
-	# message before it gets commited. I often use this to add extra info to
-	# the merge message or rewrite my local branch names in the commit message
-	# to branch names sensible to the casual reader of the git log.
-	#
-	# Option --no-ff instructs git to always record a merge commit, even if
-	# the branch being merged into can be fast-forwarded. This is often the
-	# case when you create a short-lived topic branch which tracks master, do
-	# some changes on the topic branch and then merge the changes into the
-	# master which remained unchanged while you were doing your work on the
-	# topic branch. In this case the master branch can be fast-forwarded (that
-	# is the tip of the master branch can be updated to point to the tip of
-	# the topic branch) and this is what git does by default. With --no-ff
-	# option set git creates a real merge commit which records the fact that
-	# another branch was merged. I find this easier to understand and read in
-	# the log.
+	# message before it gets commited.
 	mergeoptions = --no-commit
- # mergeoptions = --no-ff
+
+	# Option --no-ff instructs git to always record a merge commit, even if
+	# the branch being merged into can be fast-forwarded.
+	mergeoptions = --no-ff
+
+[include]
+	path = .gitconfig.user
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
