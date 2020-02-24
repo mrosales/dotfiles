@@ -11,6 +11,3 @@ then
 else
     alias history='fc -l 1'
 fi
-
-alias afind='ack-grep -il'
-

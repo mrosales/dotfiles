@@ -1,4 +1,4 @@
 # Loads autojump plugin
 if (( $+commands[brew] )) ; then
-  [[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
+  [[ -s /usr/local/etc/autojump.sh ]] && . /usr/local/etc/autojump.sh
 fi

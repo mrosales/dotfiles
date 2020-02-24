@@ -1,0 +1,20 @@
+#!/usr/bin/env zsh
+
+# Check if 'aws' is a command in $PATH
+if [ $commands[aws] ]; then
+
+  # Placeholder 'aws' shell function:
+  # Will only be executed on the first call to 'aws'
+  aws() {
+
+    # Remove this function, subsequent calls will execute 'aws' directly
+    unfunction "$0"
+
+    # Load auto-completion
+    source <(aws completion zsh)
+    source /usr/local/bin/aws_zsh_completer.sh
+
+    # Execute 'aws' binary
+    $0 "$@"
+  }
+fi

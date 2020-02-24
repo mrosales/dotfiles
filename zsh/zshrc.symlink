@@ -4,11 +4,11 @@ export ZSH=$HOME/.dotfiles
 # your project folder that we can `c [tab]` to
 export PROJECTS=$HOME/dev
 
-export SYS_ARCH=$(uname -a | cut -d' ' -f1)
-if [ "$SYS_ARCH" = Darwin ]
+# use .localrc for SUPER SECRET CRAP that you don't
+# want in your public, versioned repo.
+if [[ -a ~/.localrc ]]
 then
-    export IS_OSX=1
-    export MAJOR_OSX_VERS=$(sw_vers -productVersion | awk -F "." '{print $1 "." $2}')
+  source ~/.localrc
 fi
 
 # all of our zsh files
@@ -16,7 +16,8 @@ typeset -U config_files
 config_files=($ZSH/**/*.zsh)
 
 # reset PATH so reloading does not just append
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/opt/X11/bin"
+export MANPATH="/usr/local/share/man:/usr/local/man:/usr/local/git/man:/usr/share/man:/opt/X11/share/man"
 
 # load the path files
 for file in ${(M)config_files:#*/path.zsh}
@@ -31,8 +32,14 @@ do
 done
 
 # initialize autocomplete here, otherwise functions won't be loaded
-autoload -U compinit
-compinit
+# the default invokes this every time you start a shell, but this snippet
+# will instead only check zcompdump once per day
+autoload -Uz compinit
+if [ $(/bin/date +'%j') != $(/usr/bin/stat -f '%Sm' -t '%j' ~/.zcompdump) ]; then
+  compinit
+else
+  compinit -C
+fi
 
 # load every completion after autocomplete loads
 for file in ${(M)config_files:#*/completion.zsh}
@@ -41,12 +48,3 @@ do
 done
 
 unset config_files
-
-# use .localrc for SUPER SECRET CRAP that you don't
-# want in your public, versioned repo.
-if [[ -a ~/.localrc ]]
-then
-  source ~/.localrc
-fi
-
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
