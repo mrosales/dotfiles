@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 export LSCOLORS="exfxcxdxbxegedabagacad"
 export CLICOLOR=true
 

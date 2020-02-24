@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 # Exit if not OSX
 if [ "${SYS_ARCH:-Linux}" != Darwin ] ; then return ; fi
 

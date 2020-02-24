@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 # MIT License
 
 # Copyright (c) 2016 Luke Childs

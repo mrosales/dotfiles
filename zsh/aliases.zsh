@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 # Example aliases
 alias zshconfig="subl ~/.zshrc"
 

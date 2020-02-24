@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 # Pure
 # by Sindre Sorhus
 # https://github.com/sindresorhus/pure

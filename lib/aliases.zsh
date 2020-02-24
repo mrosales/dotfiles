@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 # Show history
 if [ "$HIST_STAMPS" = "mm/dd/yyyy" ]
 then

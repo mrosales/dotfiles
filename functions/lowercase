@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 function lowercase() {
     tr '[:upper:]' '[:lower:]'
 }

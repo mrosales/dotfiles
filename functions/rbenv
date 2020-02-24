@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 # lazy-load rbenv
 rbenv() {
   if [[ -d '/usr/local/opt/rbenv' ]]; then

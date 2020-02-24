@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 # Aliases
 alias git='noglob git'
 

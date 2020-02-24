@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 # Sublime Text 2 Aliases
 
 if [[ $('uname') == 'Linux' ]]; then
