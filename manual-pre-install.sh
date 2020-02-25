@@ -3,7 +3,7 @@
 set -e
 
 echo "Installing XCode command-line tools" >&2
-xcode-select --install
+xcode-select --install || true
 
 
 echo "Installing Homebrew" >&2
