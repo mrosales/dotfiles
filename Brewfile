@@ -15,9 +15,11 @@ brew "grep"
 
 brew "ack"
 brew "autojump"
+brew "awscli"
 brew "bash"
 brew "cloc"
 brew "curl-openssl"
+brew "diff-so-fancy"
 brew "docker-clean"
 brew "fontconfig"
 brew "gcc"
@@ -25,6 +27,7 @@ brew "git-lfs"
 brew "git"
 brew "go"
 brew "go"
+brew "golangci/tap/golangci-lint"
 brew "grc"
 brew "jq"
 brew "kubernetes-cli"
@@ -32,6 +35,7 @@ brew "mas"
 brew "moreutils"
 brew "multimarkdown"
 brew "pandoc"
+brew "poetry"
 brew "protobuf"
 brew "pyenv-virtualenv"
 brew "pyenv"
@@ -46,7 +50,9 @@ brew "trash"
 brew "tree"
 brew "vim"
 brew "vimpager"
+brew "warrensbox/tap/tfswitch"
 brew "wget"
+brew "zsh-completions"
 brew "zsh"
 
 # common apps
@@ -87,7 +93,6 @@ mas "1Password 7",              id: 1333542190
 mas "2Do",                      id: 477670270
 mas "Affinity Designer",        id: 824171161
 mas "Affinity Photo",           id: 824183456
-mas "Caffeine",                 id: 411246225
 mas "DaisyDisk",                id: 411643860
 mas "Fantastical",              id: 975937182
 mas "Keynote",                  id: 409183694
