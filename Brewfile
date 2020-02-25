@@ -1,5 +1,7 @@
 cask_args appdir: "/Applications"
 tap "homebrew/cask"
+tap "warrensbox/tap"
+tap "golangci/tap"
 
 # gnu-utils
 brew "coreutils"
@@ -43,7 +45,6 @@ brew "python"
 brew "rbenv"
 brew "reattach-to-user-namespace"
 brew "rsync"
-brew "ruby-build"
 brew "shellcheck"
 brew "tmux"
 brew "trash"
@@ -77,6 +78,7 @@ cask "webpquicklook"
 
 # developer tools
 cask "aws-vault"
+cask "goland"
 cask "dash"
 cask "docker"
 cask "iterm2"
