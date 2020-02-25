@@ -5,6 +5,8 @@ export ZSH=$HOME/.dotfiles
 # your project folder that we can `c [tab]` to
 export PROJECTS=$HOME/dev
 
+autoload -U add-zsh-hook
+
 # use .localrc for SUPER SECRET CRAP that you don't
 # want in your public, versioned repo.
 if [[ -a ~/.localrc ]]
@@ -32,15 +34,8 @@ do
   source $file
 done
 
-# initialize autocomplete here, otherwise functions won't be loaded
-# the default invokes this every time you start a shell, but this snippet
-# will instead only check zcompdump once per day
-autoload -Uz compinit
-if [ $(/bin/date +'%j') != $(/usr/bin/stat -f '%Sm' -t '%j' ~/.zcompdump) ]; then
-  compinit
-else
-  compinit -C
-fi
+autoload -Uz compinit 
+compinit
 
 # load every completion after autocomplete loads
 for file in ${(M)config_files:#*/completion.zsh}
