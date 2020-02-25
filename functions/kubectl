@@ -2,7 +2,6 @@
 
 # Check if 'kubectl' is a command in $PATH
 if [ $commands[kubectl] ]; then
-
   # Placeholder 'kubectl' shell function:
   # Will only be executed on the first call to 'kubectl'
   kubectl() {

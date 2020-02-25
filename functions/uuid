@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+
+function uuid() {
+   uuidgen | tr -d "\n"
+}
