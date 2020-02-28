@@ -1,2 +1,2 @@
 #!/usr/bin/env zsh
-export PATH="$ZSH/bin:$PATH"
+export PATH="${HOME}/bin:${ZSH}/bin:$PATH"
