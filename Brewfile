@@ -3,6 +3,15 @@ tap "homebrew/cask"
 tap "warrensbox/tap"
 tap "golangci/tap"
 
+# first install stuff thats useful during the rest of the installation
+brew "zsh"
+brew "vim"
+brew "mas"
+mas "1Password 7",              id: 1333542190
+cask "alfred"
+cask "google-chrome"
+cask "visual-studio-code"
+
 # gnu-utils
 brew "coreutils"
 brew "findutils"
@@ -28,12 +37,10 @@ brew "gcc"
 brew "git-lfs"
 brew "git"
 brew "go"
-brew "go"
 brew "golangci/tap/golangci-lint"
 brew "grc"
 brew "jq"
 brew "kubernetes-cli"
-brew "mas"
 brew "moreutils"
 brew "multimarkdown"
 brew "pandoc"
@@ -49,20 +56,16 @@ brew "shellcheck"
 brew "tmux"
 brew "trash"
 brew "tree"
-brew "vim"
 brew "vimpager"
 brew "warrensbox/tap/tfswitch"
 brew "wget"
 brew "zsh-completions"
-brew "zsh"
 
 # common apps
-cask "alfred"
 cask "appcleaner"
 cask "bartender"
 cask "brave-browser"
 cask "dropbox"
-cask "google-chrome"
 cask "spotify"
 
 # quicklook plugins
@@ -88,10 +91,8 @@ cask "postman"
 cask "sourcetree"
 cask "sublime-text"
 cask "tunnelblick"
-cask "visual-studio-code"
 cask "xquartz"
 
-mas "1Password 7",              id: 1333542190
 mas "2Do",                      id: 477670270
 mas "Affinity Designer",        id: 824171161
 mas "Affinity Photo",           id: 824183456
