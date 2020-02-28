@@ -8,6 +8,7 @@
 	whitespace = fix, -indent-with-non-tab,trailing-space
 	autocrlf = false
 	attributesfile = ~/.gitattributes
+	excludesfile = ~/.gitignore_global
 	# Treat spaces before tabs, lines that are indented with 8 or more spaces, and
 	# all kinds of trailing whitespace as an error.
 	# [default] trailing-space: looks for spaces at the end of a line
@@ -17,7 +18,6 @@
 	# Make `git rebase` safer on OS X
 	# More info: <http://www.git-tower.com/blog/make-git-rebase-safe-on-osx/>
 	trustctime = false
-	editor = "code --wait"
 
 # set your user tokens as environment variables, such as ~/.secrets
 # See the README for examples.
@@ -180,26 +180,18 @@
 [format]
 	pretty = format:%C(blue)%ad%Creset %C(yellow)%h%C(green)%d%Creset %C(blue)%s %C(magenta) [%an]%Creset
 
-[mergetool "vscode"]
-    cmd = code --wait $MERGED
-
-[mergetool]
-	prompt = false
-
 [merge]
 	summary = true
 	verbosity = 1
-	tool = vscode
 
-[difftool "vscode"]
-    cmd = code --wait --diff $LOCAL $REMOTE
+[mergetool]
+	prompt = false
 
 [diff]
 	# Git diff will use (i)ndex, (w)ork tree, (c)ommit and (o)bject
 	# instead of a/b/c/d as prefixes for patches
 	mnemonicprefix = true
 	algorithm = patience
-	tool = vscode
 
 [difftool]
 	prompt = false
@@ -214,6 +206,9 @@
 	# 'git push' will push the current branch to its tracking branch
 	# the usual default is to push all branches
 	default = tracking
+
+[pull]
+	ff = only
 
 [advice]
 	statusHints = false
@@ -241,9 +236,3 @@
 
 [include]
 	path = .gitconfig.user
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
