@@ -6,7 +6,7 @@ fpath=($ZSH/functions $fpath)
 
 autoload -U $ZSH/functions/*(:t)
 
-fpath=(/usr/local/share/zsh-completions $fpath)
+fpath=(/usr/local/share/zsh-completions $HOME/.zfunc $fpath)
 
 autoload -U /usr/local/share/zsh-completions/*(:t)
 

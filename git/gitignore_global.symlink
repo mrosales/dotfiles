@@ -11,10 +11,13 @@
 /.rvmrc
 /.rbenv-version
 
-# Bundler binstubs
-/bin/
-
 xcuserdata/
 
 *.sublime-project
 *.sublime-workspace
+
+/ffi/java/.project
+/ffi/java/.settings
+/.project
+/.settings
+

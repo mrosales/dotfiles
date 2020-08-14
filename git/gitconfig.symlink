@@ -64,6 +64,7 @@
 	lg = log -p
 	lol = log --graph --decorate --pretty=oneline --abbrev-commit
 	ls = ls-files
+	logf = log --pretty=full
 
 	# searches for files that matche the pattern
 	find = "!git ls-files | grep -i"
@@ -236,3 +237,6 @@
 
 [include]
 	path = .gitconfig.user
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
