@@ -8,12 +8,18 @@ main () {
   fi
 
   case "$1" in
+    init) init_secrets ;;
     ls) list_secrets ;;
     get) get_secret "$2" ;;
     set) set_secret "$2" "$3" ;;
     rm) delete_secret "$2" ;;
     *) print_usage ;;
   esac
+}
+
+init_secrets() {
+  security create-keychain -P $KEYCHAIN
+  security set-keychain-settings -u -t 43200 $KEYCHAIN
 }
 
 list_secrets() {
