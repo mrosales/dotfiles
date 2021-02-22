@@ -1,3 +1,3 @@
 #!/usr/bin/env zsh
 
-source ${ZSH}/iterm2/shell_integration.zsh
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true
