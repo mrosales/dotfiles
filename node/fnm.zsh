@@ -1,3 +1,3 @@
 # #!/usr/bin/env zsh
 
-eval "$(fnm env --multi)"
+eval "$(fnm env)"
