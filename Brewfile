@@ -2,6 +2,7 @@ cask_args appdir: "/Applications"
 tap "homebrew/cask"
 tap "warrensbox/tap"
 tap "golangci/tap"
+tap "Schniz/tap"
 
 # first install stuff thats useful during the rest of the installation
 brew "zsh"
@@ -60,6 +61,7 @@ brew "vimpager"
 brew "warrensbox/tap/tfswitch"
 brew "wget"
 brew "zsh-completions"
+brew "Schniz/tap/fnm"
 
 # common apps
 cask "appcleaner"
@@ -81,7 +83,6 @@ cask "webpquicklook"
 
 # developer tools
 cask "aws-vault"
-cask "goland"
 cask "dash"
 cask "docker"
 cask "iterm2"
@@ -93,21 +94,15 @@ cask "sublime-text"
 cask "tunnelblick"
 cask "xquartz"
 
-mas "2Do",                      id: 477670270
 mas "Affinity Designer",        id: 824171161
 mas "Affinity Photo",           id: 824183456
 mas "DaisyDisk",                id: 411643860
-mas "Fantastical",              id: 975937182
 mas "Keynote",                  id: 409183694
 mas "Magnet",                   id: 441258766
 mas "Numbers",                  id: 409203825
 mas "Pages",                    id: 409201541
 mas "Paprika Recipe Manager 3", id: 1303222628
 mas "PDF Expert",               id: 1055273043
-mas "Pocket",                   id: 568494494
-mas "Reeder",                   id: 880001334
-mas "Simplenote",               id: 692867256
 mas "Slack",                    id: 803453959
 mas "SnippetsLab",              id: 1006087419
 mas "The Unarchiver",           id: 425424353
-mas "Xcode",                    id: 497799835
