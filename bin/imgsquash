@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+set -e
+
+_squash() {
+  local input_f="$1"
+  local base="$1"
+  for ext in .png .PNG .jpg .JPG .tiff .TIFF; do
+    base=$(basename -s "${ext}" "${base}")
+  done
+  local out_f="${base}.png"
+
+  echo "Processing image: $f" >&2
+  local input_size=$(stat --printf="%s" "${input_f}")
+  
+  # magick "${input_f}" -size 512x -colors 128 "${out_f}"
+  magick "${input_f}" -size 768x -colors 128 "${out_f}"
+
+  local output_size=$(stat --printf="%s" "${out_f}")
+
+  local input_size_kb=$(( input_size / 1000 ))
+  local output_size_kb=$(( output_size / 1000 ))
+
+  echo "    Reduced size from ${input_size_kb}kb to ${output_size_kb}kb" >&2
+}
+
+for f in "$@"
+do
+  _squash "$f"
+done

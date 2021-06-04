@@ -23,7 +23,6 @@ brew "gnu-sed"
 brew "gnu-tar"
 brew "gnutls"
 brew "grep"
-brew "grep"
 
 brew "ack"
 brew "autojump"

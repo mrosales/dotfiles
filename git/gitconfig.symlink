@@ -235,8 +235,16 @@
 	# the branch being merged into can be fast-forwarded.
 	mergeoptions = --no-ff
 
-[include]
-	path = .gitconfig.user
+[protocol]
+	version = 2
+
 [mergetool "sourcetree"]
 	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
+
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+
+[include]
+	path = .gitconfig.user

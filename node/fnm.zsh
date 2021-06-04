@@ -1,3 +1,3 @@
 # #!/usr/bin/env zsh
 
-eval "$(fnm env)"
+_evalcache fnm env

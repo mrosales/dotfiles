@@ -6,21 +6,24 @@ export ZSH=$HOME/.dotfiles
 export PROJECTS=$HOME/dev
 
 # reset PATH so reloading does not just append
-export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/opt/X11/bin"
+export PATH="/usr/local/bin:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/opt/X11/bin"
 export MANPATH="/usr/local/share/man:/usr/local/man:/usr/local/git/man:/usr/share/man:/opt/X11/share/man"
+export PATH="${HOME}/bin:${ZSH}/bin:$PATH"
 
 autoload -U add-zsh-hook
-
-# use .localrc for SUPER SECRET CRAP that you don't
-# want in your public, versioned repo.
-if [[ -a ~/.localrc ]]
-then
-  source ~/.localrc
-fi
 
 # all of our zsh files
 typeset -U config_files
 config_files=($ZSH/**/*.zsh)
+
+# load the zsh directory first
+for file in ${(M)config_files:#*/zsh/*.zsh}
+do
+  source $file
+done
+
+# drop the zsh/* files from config_files
+config_files=(${config_files:#*/zsh/*.zsh})
 
 # load the path files
 for file in ${(M)config_files:#*/path.zsh}
@@ -28,19 +31,31 @@ do
   source $file
 done
 
-# load everything but the path and completion files
-for file in ${${config_files:#*/path.zsh}:#*/completion.zsh}
+# drop the path files from config_file
+config_files=(${config_files:#*/path.zsh})
+
+# load everything else but the completion files
+for file in ${config_files:#*/completion.zsh}
 do
   source $file
 done
 
+# initialize autocompletion
 autoload -Uz compinit 
 compinit
 
-# load every completion after autocomplete loads
+# load all of the completions
 for file in ${(M)config_files:#*/completion.zsh}
 do
   source $file
 done
 
 unset config_files
+
+# localrc will override any path/completion files specified in the dotfiles repo
+# use .localrc for SUPER SECRET CRAP that you don't
+# want in your public, versioned repo.
+if [[ -a ~/.localrc ]]
+then
+  source ~/.localrc
+fi

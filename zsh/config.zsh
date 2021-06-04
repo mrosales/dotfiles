@@ -8,7 +8,9 @@ autoload -U $ZSH/functions/*(:t)
 
 fpath=(/usr/local/share/zsh-completions $HOME/.zfunc $fpath)
 
-autoload -U /usr/local/share/zsh-completions/*(:t)
+if [ -d /usr/local/share/zsh-completions/ ]; then
+  autoload -U /usr/local/share/zsh-completions/*(:t)
+fi
 
 HISTFILE=~/.zsh_history
 HISTSIZE=10000

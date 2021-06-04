@@ -1,16 +1,14 @@
 #!/usr/bin/env zsh
 
 if [ $commands[pyenv] ] ; then
-    function pyenv() {
-        export PYENV_ROOT=$HOME/.pyenv
-        unset -f pyenv
-        eval "$(command pyenv init -)"
-        if [ $commands[pyenv-virtualenv] ]; then
-            eval "$(command pyenv virtualenv-init -)"
-        fi
+    _evalcache pyenv init -
+
+    export PYENV_ROOT=$HOME/.pyenv
+
+    if [ $commands[pyenv-virtualenv] ]; then
+        _evalcache pyenv virtualenv-init -
         export PATH="${PYENV_ROOT}/bin:${PYENV_ROOT}/shims:${PATH}"
-        pyenv $@
-    }
+    fi
 
     _zsh_pyenv_auto_use() {
         local python_version_path=".python-version"
@@ -22,18 +20,26 @@ if [ $commands[pyenv] ] ; then
     add-zsh-hook chpwd _zsh_pyenv_auto_use && _zsh_pyenv_auto_use
 
     pyenv-brew-relink() {
-        rm -f "$HOME/.pyenv/versions/*-brew"
+        rm -f "${HOME}/.pyenv/versions/*-brew"
 
-        for i in $(brew --cellar python)/*; do
-            ln -s --force $i $HOME/.pyenv/versions/${i##/*/}-brew;
-        done
+        local cellars=($(brew --cellar)/*)
+        local python_cellars=${(M)cellars:#*/python@*}
 
-        for i in $(brew --cellar python@2)/*; do
-            ln -s --force $i $HOME/.pyenv/versions/${i##/*/}-brew;
+        for python_cellar in ${(M)cellars:#*/python@*}; do
+            local python_versions=(${python_cellar}/*)
+            for python_home in ${python_versions}; do
+                local pyenv_version_link="${HOME}/.pyenv/versions/${python_home##/*/}-brew"
+                echo "Creating Link ${pyenv_version_link} -> ${python_home}" >&2
+                ln -s --force ${python_home} ${pyenv_version_link};
+            done
         done
     }
 
     pyenv-latest-python() {
-        pyenv install -l | grep "^\s*3\." | grep -v "dev" | grep -v "a" | awk '{$1=$1;print}' | grep "$1" | tail -1
+        local pyenv_versions=($(pyenv install -l))
+        # zsh glob to remove any "<name>-<version>" style versions and any "X.Y.ZaZYZ" alpha versions
+        pyenv_versions=(${${pyenv_versions:#*-*}:#*a*})
+        # print out the last item in the list
+        echo ${pyenv_versions[-1]}
     }
 fi
