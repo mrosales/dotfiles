@@ -1,9 +1,9 @@
 #!/usr/bin/env zsh
 
 if [ $commands[pyenv] ] ; then
-    _evalcache pyenv init -
-
-    export PYENV_ROOT=$HOME/.pyenv
+    _evalcache pyenv init - zsh --no-rehash --path
+    export PYENV_ROOT="$HOME/.pyenv"
+    export PATH="$PYENV_ROOT/bin:$PATH"
 
     if [ $commands[pyenv-virtualenv] ]; then
         _evalcache pyenv virtualenv-init -
