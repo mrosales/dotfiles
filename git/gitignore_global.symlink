@@ -20,4 +20,6 @@ xcuserdata/
 /ffi/java/.settings
 /.project
 /.settings
+/.vscode
+/.idea
 
