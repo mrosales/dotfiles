@@ -19,6 +19,16 @@
 	# More info: <http://www.git-tower.com/blog/make-git-rebase-safe-on-osx/>
 	trustctime = false
 
+	# use git-delta pager
+	pager = delta
+
+[interactive]
+  diffFilter = delta --color-only
+
+[delta]
+  navigate = true
+  light = false
+
 # set your user tokens as environment variables, such as ~/.secrets
 # See the README for examples.
 [color]
@@ -50,9 +60,6 @@
 
 [help]
 	autocorrect = 1
-
-[push]
-	default = simple
 
 [filter "lfs"]
 	clean = git-lfs clean -- %f
@@ -181,6 +188,7 @@
 [merge]
 	summary = true
 	verbosity = 1
+  	conflictstyle = diff3
 
 [mergetool]
 	prompt = false
@@ -190,6 +198,7 @@
 	# instead of a/b/c/d as prefixes for patches
 	mnemonicprefix = true
 	algorithm = patience
+	colorMoved = default
 
 [difftool]
 	prompt = false
@@ -203,7 +212,7 @@
 [push]
 	# 'git push' will push the current branch to its tracking branch
 	# the usual default is to push all branches
-	default = tracking
+	default = current
 
 [pull]
 	ff = only
@@ -245,3 +254,19 @@
 
 [include]
 	path = .gitconfig.user
+
+[diff "jupyternotebook"]
+	command = git-nbdiffdriver diff
+
+[merge "jupyternotebook"]
+	driver = git-nbmergedriver merge %O %A %B %L %P
+	name = jupyter notebook merge driver
+
+[difftool "nbdime"]
+	cmd = git-nbdifftool diff \"$LOCAL\" \"$REMOTE\" \"$BASE\"
+
+[mergetool "nbdime"]
+	cmd = git-nbmergetool merge \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\"
+
+[init]
+	defaultBranch = main

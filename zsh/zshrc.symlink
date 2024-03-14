@@ -30,8 +30,8 @@ path=(/usr/local/bin /usr/local/sbin /usr/bin /usr/sbin /bin /sbin /opt/X11/bin)
 manpath=(/usr/local/share/man /usr/share/man /opt/X11/share/man)
 
 # Override system utils with gnu versions (e.g. grep, ls, cp, etc)
-path=(/usr/local/opt/coreutils/libexec/gnubin $path)
-path=(${HOME}/bin ${ZSH}/bin $path)
+path=(${BREW_PREFIX}/opt/coreutils/libexec/gnubin $path)
+path=(${HOME}/bin ${ZSH}/bin ${HOME}/.local/bin $path)
 
 ###############################################################################
 ########## Plugin Setup
@@ -55,11 +55,13 @@ for f in $ZSH/zsh/{plugins,config}/*.zsh ; do source $f ; done
 # function definitions.
 
 typeset -aU completion_dirs
+
 completion_dirs=(
   ${BREW_PREFIX}/share/zsh-completions
   ${BREW_PREFIX}/share/zsh/site-functions
   ${ZSH}/zsh/functions
   ${ZSH}/zsh/completion
+  ${HOME}/.zfunc
 )
 for d in $completion_dirs ; do
   if [[ -d $d ]] ; then
@@ -78,9 +80,15 @@ autoload -Uz compinit; compinit
 ###############################################################################
 ##########  Prompt Configuration
 ###############################################################################
+if [ ${commands[starship]} ]; then
+  export STARSHIP_CONFIG=${ZSH}/zsh/starship.toml
 
-# Don't load pure prompt if it is not installed
-if type prompt_pure_setup &>/dev/null ; then
+  # Use starship prompt if installed
+  # https://starship.rs
+  eval "$(starship init zsh)"
+
+elif [ ${commands[prompt_pure_setup]} ] ; then  
+  # Fall back to pure prompt if it is installed
   autoload -Uz promptinit; promptinit
   # Configure prompt here
   # https://github.com/sindresorhus/pure#options
@@ -99,3 +107,4 @@ fi
 if [[ -s ~/.localrc ]] ; then
   source ~/.localrc
 fi
+

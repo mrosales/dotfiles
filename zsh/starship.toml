@@ -1,0 +1,18 @@
+# Configuration for starship prompt
+# https://starship.rs/config/
+"$schema" = 'https://starship.rs/config-schema.json'
+
+command_timeout = 6000
+scan_timeout = 50
+
+[package]
+disabled = true
+
+[ruby]
+disabled = true
+
+[gcloud]
+disabled = true
+
+[aws]
+disabled = true

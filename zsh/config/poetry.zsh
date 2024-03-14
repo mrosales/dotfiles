@@ -1,7 +1,10 @@
 #!/usr/bin/env zsh
 
-if [ $commands[poetry] ] ; then
-    path=(${HOME}/.poetry/bin $path)
+# Only configure poetry paths if poetry dir exists.
+if [[ -d "${HOME}/.poetry" ]]; then
+    export POETRY_HOME=${HOME}/.poetry
+
+    path=(${POETRY_HOME}/bin $path)
 
     if [[ ! -d $HOME/.zfunc ]]; then
         mkdir -p ${HOME}/.zfunc
@@ -13,6 +16,6 @@ if [ $commands[poetry] ] ; then
     # - '.' matches "regular files"
     # - 'mh+24' matches files (or directories or whatever) that are older than 24 hours.
     if [[ ! -f $HOME/.zfunc/_poetry ]] || [[ -n $HOME/.zfunc/_poetry(#qN.mh+24) ]] ; then
-        poetry completions zsh > ${HOME}/.zfunc/_poetry
+        ${POETRY_HOME}/bin/poetry completions zsh > ${HOME}/.zfunc/_poetry
     fi;
 fi

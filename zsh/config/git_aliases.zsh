@@ -58,5 +58,5 @@ alias gmt='git mergetool --no-prompt'
 alias grt='cd $(git rev-parse --show-toplevel || echo ".")'
 
 # these alias commit and uncomit wip branches
-alias gwip='git add -A; git rm $(git ls-files --deleted) 2> /dev/null; git commit -m "--wip--"'
+alias gwip='git add -A; git rm $(git ls-files --deleted) 2> /dev/null; git commit -m "--wip--" --no-verify'
 alias gunwip='git log -n 1 | grep -q -c "\-\-wip\-\-" && git reset HEAD~1'
